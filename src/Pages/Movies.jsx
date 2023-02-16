@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
   const [loading, setLoading] = useState(false);
   //   const [error, setError] = useState('');
@@ -32,6 +32,7 @@ const Movies = () => {
     if (query === fetchQuery) {
       console.log('Enter new request');
     }
+    // setSearchParams('');
   };
 
   return (
