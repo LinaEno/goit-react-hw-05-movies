@@ -20,6 +20,7 @@ const Reviews = () => {
   }, [movieId]);
   return (
     <>
+      {reviews.length === 0 && <p>We don't have reviews about this movie</p>}
       {reviews && (
         <ul>
           {reviews.map(({ id, author, content }) => {

@@ -22,6 +22,7 @@ const Cast = () => {
 
   return (
     <>
+      {credits.length === 0 && <p>We don't have info about casts</p>}
       {credits && (
         <ul>
           {credits.map(({ id, name, profile_path }) => {

@@ -27,7 +27,7 @@ const MoviesDetails = () => {
       {movieDetails && (
         <div>
           <div>
-            <NavLink to={location.state.from}>Go back</NavLink>
+            <NavLink to={location?.state?.from}>Go back</NavLink>
             <img
               src={'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path}
               alt={movieDetails.original_title}
@@ -45,8 +45,12 @@ const MoviesDetails = () => {
           <div>
             <h3>Additional information</h3>
             <ul>
-              <NavLink to="cast">Cast</NavLink>
-              <NavLink to="reviews">Reviews</NavLink>
+              <NavLink to="cast" state={{ from: location?.state?.from }}>
+                Cast
+              </NavLink>
+              <NavLink to="reviews" state={{ from: location?.state?.from }}>
+                Reviews
+              </NavLink>
             </ul>
             <Outlet />
           </div>

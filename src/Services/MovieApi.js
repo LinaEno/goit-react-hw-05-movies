@@ -1,68 +1,5 @@
 import axios from 'axios';
 
-//   async getFilmsByGenres() {
-//     try {
-//       const response = await axios2.get(
-//         `/genre/movie/list?api_key=${KEY}&language=en-US`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   async getFilmsByName() {
-//     try {
-//       const response = await axios2.get(
-//         `/search/movie?query=${this.searchQuery}&api_key=${KEY}&language=en-US&page=${this.page}`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   async getFilmDetails(id) {
-//     try {
-//       const response = await axios2.get(
-//         `/movie/${id}?api_key=${KEY}&language=en-US`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   async getFilmVideo(id) {
-//     try {
-//       const response = await axios2.get(
-//         `/movie/${id}/videos?api_key=${KEY}&language=en-US`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-
-//   async getFilteredMovies() {
-//     try {
-//       const searchParams = new URLSearchParams({
-//         api_key: KEY,
-//         sort_by: 'popularity.desc',
-//         page: this.page,
-//         include_adult: false,
-//         with_genres: this.genre,
-//         primary_release_year: this.year,
-//       });
-//       const response = await axios2.get(
-//         `/discover/movie?${searchParams}&vote_average.gte=${this.vote}`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       console.log(error);
-//     }
-// }
-
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 const API_KEY = '2963fc82afd3cb57f64d050a1ba5935c';
 
@@ -102,8 +39,22 @@ export async function getFilmsById(id) {
     include_adult: false,
   };
   const { data } = await axios.get(`/movie/${id}`, { params });
-
-  return data;
+  const {
+    poster_path,
+    original_title,
+    release_date,
+    vote_average,
+    overview,
+    genres,
+  } = data;
+  return {
+    poster_path,
+    original_title,
+    release_date,
+    vote_average,
+    overview,
+    genres,
+  };
 }
 
 export async function getCreditsById(id) {
@@ -113,8 +64,12 @@ export async function getCreditsById(id) {
     include_adult: false,
   };
   const { data } = await axios.get(`/movie/${id}/credits`, { params });
-
-  return data.cast;
+  const credits = data.cast.map(({ id, name, profile_path }) => ({
+    id,
+    name,
+    profile_path,
+  }));
+  return credits;
 }
 
 export async function getReviewsById(id) {
@@ -124,6 +79,10 @@ export async function getReviewsById(id) {
     include_adult: false,
   };
   const { data } = await axios.get(`/movie/${id}/reviews`, { params });
-
-  return data.results;
+  const reviews = data.results.map(({ id, author, content }) => ({
+    id,
+    author,
+    content,
+  }));
+  return reviews;
 }
