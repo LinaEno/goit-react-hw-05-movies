@@ -4,6 +4,7 @@ import { getFilmsById } from 'Services/MovieApi';
 
 const MoviesDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
   const location = useLocation();
 
@@ -11,12 +12,14 @@ const MoviesDetails = () => {
     if (!movieId) return;
     const getMovieById = async movieId => {
       try {
+        setLoading(true);
         const movieDetails = await getFilmsById(movieId);
 
         setMovieDetails(movieDetails);
       } catch (error) {
         console.log(error);
       } finally {
+        setLoading(false);
       }
     };
     getMovieById(movieId);
@@ -24,7 +27,7 @@ const MoviesDetails = () => {
 
   return (
     <>
-      {movieDetails && (
+      {movieDetails && !loading && (
         <div>
           <div>
             <NavLink to={location?.state?.from}>Go back</NavLink>

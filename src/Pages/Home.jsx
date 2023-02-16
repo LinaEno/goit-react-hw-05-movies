@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { InfinitySpin } from 'react-loader-spinner';
-import TrendingLink from 'components/TrendingLink';
+
 import { getPopularFilms } from 'Services/MovieApi';
+
+import TrendingLink from 'components/TrendingLink';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);

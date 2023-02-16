@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import SearchBar from 'components/SearchBar';
 import { getSearchFilms } from 'Services/MovieApi';
 import TrendingLink from 'components/TrendingLink';
+import { useSearchParams } from 'react-router-dom';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
-  //   const [isLoading, setIsLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get('query');
+  const [isLoading, setIsLoading] = useState(false);
   //   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (query === '') return;
+    if (!query) return;
     const getMovies = async () => {
       try {
         const movies = await getSearchFilms(query);
@@ -27,7 +29,6 @@ const Movies = () => {
     if (query === fetchQuery) {
       console.log('Enter new request');
     }
-    setQuery(fetchQuery);
   };
 
   return (

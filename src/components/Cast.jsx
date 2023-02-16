@@ -4,17 +4,20 @@ import { getCreditsById } from 'Services/MovieApi';
 
 const Cast = () => {
   const [credits, setCredits] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
 
   useEffect(() => {
     if (!movieId) return;
     const getCredits = async movieId => {
       try {
+        setLoading(true);
         const credits = await getCreditsById(movieId);
         setCredits(credits);
       } catch (error) {
         console.log(error);
       } finally {
+        setLoading(false);
       }
     };
     getCredits(movieId);
@@ -22,8 +25,10 @@ const Cast = () => {
 
   return (
     <>
-      {credits.length === 0 && <p>We don't have info about casts</p>}
-      {credits && (
+      {credits.length === 0 && !loading && (
+        <p>We don't have info about casts</p>
+      )}
+      {credits && !loading && (
         <ul>
           {credits.map(({ id, name, profile_path }) => {
             return (
