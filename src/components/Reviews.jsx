@@ -1,19 +1,23 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviewsById } from 'Services/MovieApi';
+import { InfinitySpin } from 'react-loader-spinner';
 
 const Reviews = () => {
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
   useEffect(() => {
     if (!movieId) return;
     const getReviews = async movieId => {
       try {
+        setLoading(true);
         const reviews = await getReviewsById(movieId);
         setReviews(reviews);
       } catch (error) {
         console.log(error);
       } finally {
+        setLoading(false);
       }
     };
     getReviews(movieId);
@@ -33,6 +37,7 @@ const Reviews = () => {
           })}
         </ul>
       )}
+      {loading && <InfinitySpin width="200" color="#4fa94d" />}
     </>
   );
 };

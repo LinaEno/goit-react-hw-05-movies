@@ -1,8 +1,6 @@
-// import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export default function SearchBar({ onSubmit }) {
-  // const [query, setQuery] = useState('');
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query');
 

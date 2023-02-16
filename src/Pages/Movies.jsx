@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { InfinitySpin } from 'react-loader-spinner';
 import SearchBar from 'components/SearchBar';
 import { getSearchFilms } from 'Services/MovieApi';
 import TrendingLink from 'components/TrendingLink';
@@ -8,18 +9,20 @@ const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams] = useSearchParams();
   const query = searchParams.get('query');
-  const [isLoading, setIsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   //   const [error, setError] = useState('');
 
   useEffect(() => {
     if (!query) return;
     const getMovies = async () => {
       try {
+        setLoading(true);
         const movies = await getSearchFilms(query);
         setMovies(prevMovies => [...prevMovies, ...movies]);
       } catch (error) {
         console.log(error);
       } finally {
+        setLoading(false);
       }
     };
     getMovies();
@@ -39,6 +42,7 @@ const Movies = () => {
           return <TrendingLink key={id} name={original_title} id={id} />;
         })}
       </ul>
+      {loading && <InfinitySpin width="200" color="#4fa94d" />}
     </div>
   );
 };

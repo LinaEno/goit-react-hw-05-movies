@@ -2,11 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import { InfinitySpin } from 'react-loader-spinner';
 import Layout from './Layout';
-// import Home from './Pages/Home';
-// import Movies from './Pages/Movies';
-// import MoviesDetails from './Pages/MoviesDetails';
-// import Cast from './Cast';
-// import Reviews from './Reviews';
+
 const Home = lazy(() => import('../Pages/Home'));
 const Movies = lazy(() => import('../Pages/Movies'));
 const MoviesDetails = lazy(() => import('../Pages/MoviesDetails'));

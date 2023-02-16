@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCreditsById } from 'Services/MovieApi';
+import { InfinitySpin } from 'react-loader-spinner';
 
 const Cast = () => {
   const [credits, setCredits] = useState([]);
@@ -43,6 +44,7 @@ const Cast = () => {
           })}
         </ul>
       )}
+      {loading && <InfinitySpin width="200" color="#4fa94d" />}
     </>
   );
 };
