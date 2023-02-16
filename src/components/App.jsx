@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import React, { lazy, Suspense } from 'react';
 import { InfinitySpin } from 'react-loader-spinner';
 import Layout from './Layout';
+import { Box } from './Box.styled';
 
 const Home = lazy(() => import('../Pages/Home'));
 const Movies = lazy(() => import('../Pages/Movies'));
@@ -11,7 +12,7 @@ const Reviews = lazy(() => import('./Reviews'));
 
 export const App = () => {
   return (
-    <div>
+    <Box>
       <Layout>
         <Suspense fallback={<InfinitySpin width="200" color="#4fa94d" />}>
           <Routes>
@@ -25,6 +26,6 @@ export const App = () => {
           </Routes>
         </Suspense>
       </Layout>
-    </div>
+    </Box>
   );
 };

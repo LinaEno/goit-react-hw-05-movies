@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCreditsById } from 'Services/MovieApi';
 import { InfinitySpin } from 'react-loader-spinner';
+import { CastList, CastItem } from './Cast.styled';
+
+const defaultImg = new URL('../img/zaglushka.jpg', import.meta.url);
 
 const Cast = () => {
   const [credits, setCredits] = useState([]);
@@ -30,19 +33,24 @@ const Cast = () => {
         <p>We don't have info about casts</p>
       )}
       {credits && !loading && (
-        <ul>
+        <CastList>
           {credits.map(({ id, name, profile_path }) => {
             return (
-              <li key={id}>
+              <CastItem key={id}>
                 <img
-                  src={'https://image.tmdb.org/t/p/w500' + profile_path}
+                  src={
+                    profile_path
+                      ? 'https://image.tmdb.org/t/p/w500' + profile_path
+                      : defaultImg
+                  }
                   alt={name}
+                  width="300"
                 />
                 <p>{name}</p>
-              </li>
+              </CastItem>
             );
           })}
-        </ul>
+        </CastList>
       )}
       {loading && <InfinitySpin width="200" color="#4fa94d" />}
     </>
