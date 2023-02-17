@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import { Form, Input, SearchButton } from './Form.styled';
+import { Form, Input } from './Form.styled';
 
 export default function SearchBar({ onSubmit }) {
   const [searchParams, setSearchParams] = useSearchParams();
