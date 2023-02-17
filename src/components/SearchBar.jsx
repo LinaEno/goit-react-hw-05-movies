@@ -1,4 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
+import { Form, Input, SearchButton } from './Form.styled';
 
 export default function SearchBar({ onSubmit }) {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -16,16 +17,15 @@ export default function SearchBar({ onSubmit }) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
+      <Form onSubmit={handleSubmit}>
+        <Input
           onChange={handleChange}
           type="text"
           autoComplete="off"
           autoFocus
           value={query}
         />
-        <button type="submit">Search</button>
-      </form>
+      </Form>
     </div>
   );
 }

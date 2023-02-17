@@ -16,8 +16,11 @@ code {
 
 a {
   text-decoration: none;
+  cursor: pointer;
 }
 
 ul {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }

@@ -1,15 +1,15 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Header, Menu } from './header.styled';
 
 const Layout = ({ children }) => {
   return (
     <div>
-      <header>
+      <Header>
         <nav>
-          <NavLink to="/"> Home</NavLink>
-          <NavLink to="movies"> Movies</NavLink>
+          <Menu to="/"> Home</Menu>
+          <Menu to="movies"> Movies</Menu>
         </nav>
-      </header>
+      </Header>
       {children}
     </div>
   );

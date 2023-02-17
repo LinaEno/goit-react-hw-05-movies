@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getCreditsById } from 'Services/MovieApi';
 import { InfinitySpin } from 'react-loader-spinner';
 import { CastList, CastItem } from './Cast.styled';
+import { Notification } from './Reviews.styled';
 
 const defaultImg = new URL('../img/zaglushka.jpg', import.meta.url);
 
@@ -30,7 +31,7 @@ const Cast = () => {
   return (
     <>
       {credits.length === 0 && !loading && (
-        <p>We don't have info about casts</p>
+        <Notification>We don't have info about casts</Notification>
       )}
       {credits && !loading && (
         <CastList>
