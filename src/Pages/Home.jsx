@@ -4,31 +4,39 @@ import { getPopularFilms } from 'Services/MovieApi';
 
 import TrendingLink from 'components/TrendingLink';
 import { Title } from 'components/Home.styled';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  const getMovies = async () => {
-    try {
-      setLoading(true);
-      const movies = await getPopularFilms();
-      setMovies(movies);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!movies) return;
+    const getMovies = async () => {
+      try {
+        setLoading(true);
+        const movies = await getPopularFilms();
+        setMovies(movies);
+      } catch (error) {
+        setError('Oops. Something went wrong 😭');
+      } finally {
+        setLoading(false);
+      }
+    };
     getMovies();
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
   return (
     <>
-      {!loading && (
+      {!loading && !error && movies && (
         <div>
           <Title>Trending today</Title>
           <ul>
@@ -38,7 +46,13 @@ const Home = () => {
           </ul>
         </div>
       )}
-      {loading && <InfinitySpin width="200" color="#4fa94d" />}
+      {loading && !error && <InfinitySpin width="200" color="#4fa94d" />}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        closeOnClick
+        theme="colored"
+      />
     </>
   );
 };
