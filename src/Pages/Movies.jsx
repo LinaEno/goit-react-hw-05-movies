@@ -50,12 +50,15 @@ const Movies = () => {
   return (
     <div>
       <SearchBar onSubmit={setQueryFunc} />
-      <ul>
-        {movies.map(({ id, original_title }) => {
-          return <TrendingLink key={id} name={original_title} id={id} />;
-        })}
-      </ul>
-      {loading && <InfinitySpin width="200" color="#4fa94d" />}
+      {!loading && !error && movies && (
+        <ul>
+          {movies.map(({ id, original_title }) => {
+            return <TrendingLink key={id} name={original_title} id={id} />;
+          })}
+        </ul>
+      )}
+
+      {loading && !error && <InfinitySpin width="200" color="#4fa94d" />}
       <ToastContainer
         position="top-center"
         autoClose={5000}

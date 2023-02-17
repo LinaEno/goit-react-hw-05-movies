@@ -4,6 +4,8 @@ import { getCreditsById } from 'Services/MovieApi';
 import { InfinitySpin } from 'react-loader-spinner';
 import { CastList, CastItem } from './Cast.styled';
 import { Notification } from './Reviews.styled';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const defaultImg = new URL('../img/zaglushka.jpg', import.meta.url);
 
@@ -11,6 +13,7 @@ const Cast = () => {
   const [credits, setCredits] = useState([]);
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!movieId) return;
@@ -20,7 +23,7 @@ const Cast = () => {
         const credits = await getCreditsById(movieId);
         setCredits(credits);
       } catch (error) {
-        console.log(error);
+        setError('Oops. Something went wrong 😭');
       } finally {
         setLoading(false);
       }
@@ -28,12 +31,18 @@ const Cast = () => {
     getCredits(movieId);
   }, [movieId]);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
   return (
     <>
-      {credits.length === 0 && !loading && (
+      {credits.length === 0 && !loading && !error && (
         <Notification>We don't have info about casts</Notification>
       )}
-      {credits && !loading && (
+      {credits && !loading && !error && (
         <CastList>
           {credits.map(({ id, name, profile_path }) => {
             return (
@@ -53,7 +62,13 @@ const Cast = () => {
           })}
         </CastList>
       )}
-      {loading && <InfinitySpin width="200" color="#4fa94d" />}
+      {loading && !error && <InfinitySpin width="200" color="#4fa94d" />}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        closeOnClick
+        theme="colored"
+      />
     </>
   );
 };

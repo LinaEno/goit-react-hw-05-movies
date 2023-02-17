@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useParams, useLocation, Outlet } from 'react-router-dom';
+import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { getFilmsById } from 'Services/MovieApi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
   ButtonBack,
   DetailsBox,
@@ -8,6 +10,7 @@ import {
   DetailsTitle,
   InfoLink,
 } from 'components/MovieDetails.styled';
+import { InfinitySpin } from 'react-loader-spinner';
 
 const defaultImg = new URL('../img/zaglushka.jpg', import.meta.url);
 
@@ -16,6 +19,7 @@ const MoviesDetails = () => {
   const [loading, setLoading] = useState(false);
   const { movieId } = useParams();
   const location = useLocation();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (!movieId) return;
@@ -26,7 +30,7 @@ const MoviesDetails = () => {
 
         setMovieDetails(movieDetails);
       } catch (error) {
-        console.log(error);
+        setError('Oops. Something went wrong 😭');
       } finally {
         setLoading(false);
       }
@@ -34,9 +38,15 @@ const MoviesDetails = () => {
     getMovieById(movieId);
   }, [movieId]);
 
+  useEffect(() => {
+    if (error) {
+      toast.error(error);
+    }
+  }, [error]);
+
   return (
     <>
-      {movieDetails && !loading && (
+      {movieDetails && !loading && !error && (
         <div>
           <ButtonBack to={location?.state?.from}>Go back</ButtonBack>
           <DetailsBox>
@@ -76,6 +86,13 @@ const MoviesDetails = () => {
           </div>
         </div>
       )}
+      {loading && !error && <InfinitySpin width="200" color="#4fa94d" />}
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        closeOnClick
+        theme="colored"
+      />
     </>
   );
 };
