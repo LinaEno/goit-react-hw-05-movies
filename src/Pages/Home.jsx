@@ -13,7 +13,6 @@ const Home = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (!movies) return;
     const getMovies = async () => {
       try {
         setLoading(true);
