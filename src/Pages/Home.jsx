@@ -16,8 +16,8 @@ const Home = () => {
     const getMovies = async () => {
       try {
         setLoading(true);
-        const movies = await getPopularFilms();
-        setMovies(movies);
+        const data = await getPopularFilms();
+        setMovies(data);
       } catch (error) {
         setError('Oops. Something went wrong 😭');
       } finally {
