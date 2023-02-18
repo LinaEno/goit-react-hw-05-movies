@@ -4,7 +4,7 @@ import { InfinitySpin } from 'react-loader-spinner';
 import Layout from '../Layout/Layout';
 import { Box } from './Box.styled';
 
-const Home = lazy(() => import('pages/Home'));
+const Home = lazy(() => import('pages/HomePage'));
 const Movies = lazy(() => import('pages/Films'));
 const MoviesDetails = lazy(() => import('pages/MovieDetails'));
 const Cast = lazy(() => import('../Cast/Cast'));
