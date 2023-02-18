@@ -34,15 +34,7 @@ export default function SearchBar() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    // const query = e.target.query.value.trim().toLowerCase();
-    // if (!query) return;
-    // setSearchParams({ query });
   };
-
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   onSubmit(query);
-  // };
 
   const handleChange = e => {
     const query = e.target.value;
@@ -52,8 +44,10 @@ export default function SearchBar() {
   return (
     <div>
       <Form onSubmit={handleSubmit}>
+        {/* інпут - стилізований DebounceInput */}
         <Input
           onChange={handleChange}
+          debounceTimeout={1000}
           type="text"
           name="query"
           autoComplete="off"
