@@ -47,7 +47,6 @@ const Movies = () => {
   //     console.log('Enter new request');
   //   }
   // };
-  //
 
   return (
     <div>
