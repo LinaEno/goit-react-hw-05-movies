@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { InfinitySpin } from 'react-loader-spinner';
 import { getPopularFilms } from 'Services/MovieApi';
-
-import TrendingLink from 'components/TrendingLink';
-import { Title } from 'components/Home.styled';
+import { MoviesList } from 'components/MoviesList/MoviesList';
+import { Title } from 'components/Home/Home.styled';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -18,6 +17,7 @@ const Home = () => {
         setLoading(true);
         const data = await getPopularFilms();
         setMovies(data);
+        setError('');
       } catch (error) {
         setError('Oops. Something went wrong 😭');
       } finally {
@@ -38,11 +38,7 @@ const Home = () => {
       {!loading && !error && movies && (
         <div>
           <Title>Trending today</Title>
-          <ul>
-            {movies.map(({ id, original_title }) => {
-              return <TrendingLink key={id} name={original_title} id={id} />;
-            })}
-          </ul>
+          <MoviesList movies={movies} />
         </div>
       )}
       {loading && !error && <InfinitySpin width="200" color="#4fa94d" />}

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { MovieItem } from './Home.styled';
 
-const TrendingLink = ({ name, id }) => {
+const MovieLink = ({ name, id }) => {
   const location = useLocation();
   return (
     <MovieItem>
@@ -13,4 +13,4 @@ const TrendingLink = ({ name, id }) => {
   );
 };
 
-export default TrendingLink;
+export default MovieLink;

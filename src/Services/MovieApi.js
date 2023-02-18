@@ -1,4 +1,5 @@
 import axios from 'axios';
+import defaultImg from '../img/zaglushka.jpg';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org/3';
 const API_KEY = '2963fc82afd3cb57f64d050a1ba5935c';
@@ -48,12 +49,12 @@ export async function getFilmsById(id) {
     genres,
   } = data;
   return {
-    poster_path,
+    poster_path: getPoster(poster_path),
     original_title,
-    release_date,
-    vote_average,
+    release_date: release_date.slice(0, 4),
+    vote_average: vote_average.toFixed(1),
     overview,
-    genres,
+    genres: genres.map(({ name }) => name).join(', '),
   };
 }
 
@@ -67,7 +68,7 @@ export async function getCreditsById(id) {
   const credits = data.cast.map(({ id, name, profile_path }) => ({
     id,
     name,
-    profile_path,
+    profile_path: getPoster(profile_path),
   }));
   return credits;
 }
@@ -86,3 +87,6 @@ export async function getReviewsById(id) {
   }));
   return reviews;
 }
+
+const getPoster = url =>
+  url ? 'https://image.tmdb.org/t/p/w500' + url : defaultImg;

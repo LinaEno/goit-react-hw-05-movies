@@ -3,11 +3,9 @@ import { useParams } from 'react-router-dom';
 import { getCreditsById } from 'Services/MovieApi';
 import { InfinitySpin } from 'react-loader-spinner';
 import { CastList, CastItem } from './Cast.styled';
-import { Notification } from './Reviews.styled';
+import { Notification } from '../Reviews/Reviews.styled';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const defaultImg = new URL('../img/zaglushka.jpg', import.meta.url);
 
 const Cast = () => {
   const [credits, setCredits] = useState([]);
@@ -22,6 +20,7 @@ const Cast = () => {
         setLoading(true);
         const credits = await getCreditsById(movieId);
         setCredits(credits);
+        setError('');
       } catch (error) {
         setError('Oops. Something went wrong 😭');
       } finally {
@@ -47,15 +46,7 @@ const Cast = () => {
           {credits.map(({ id, name, profile_path }) => {
             return (
               <CastItem key={id}>
-                <img
-                  src={
-                    profile_path
-                      ? 'https://image.tmdb.org/t/p/w500' + profile_path
-                      : defaultImg
-                  }
-                  alt={name}
-                  width="300"
-                />
+                <img src={profile_path} alt={name} width="300" />
                 <p>{name}</p>
               </CastItem>
             );

@@ -19,6 +19,7 @@ const Reviews = () => {
         setLoading(true);
         const reviews = await getReviewsById(movieId);
         setReviews(reviews);
+        setError('');
       } catch (error) {
         setError('Oops. Something went wrong 😭');
       } finally {
