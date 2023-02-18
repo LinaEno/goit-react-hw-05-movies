@@ -5,7 +5,7 @@ import Layout from '../Layout/Layout';
 import { Box } from './Box.styled';
 
 const Home = lazy(() => import('pages/Home'));
-const Movies = lazy(() => import('pages/Movies'));
+const Movies = lazy(() => import('pages/Films'));
 const MoviesDetails = lazy(() => import('pages/MovieDetails'));
 const Cast = lazy(() => import('../Cast/Cast'));
 const Reviews = lazy(() => import('../Reviews/Reviews'));
