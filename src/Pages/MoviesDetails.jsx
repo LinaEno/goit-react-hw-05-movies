@@ -3,12 +3,12 @@ import { useParams, useLocation, Outlet } from 'react-router-dom';
 import { getFilmsById } from 'Services/MovieApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Details } from 'components/MovieDetails/Details';
+import { Details } from 'components/Details/Details';
 import {
   ButtonBack,
   DetailsTitle,
   InfoLink,
-} from 'components/MovieDetails/MovieDetails.styled';
+} from 'components/Details/MovieDetails.styled';
 import { InfinitySpin } from 'react-loader-spinner';
 
 const MoviesDetails = () => {
