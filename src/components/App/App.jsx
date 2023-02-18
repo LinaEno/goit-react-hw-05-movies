@@ -9,7 +9,7 @@ const Movies = lazy(() => import('pages/Movies'));
 const MoviesDetails = lazy(() => import('pages/MoviesDetails'));
 const Cast = lazy(() => import('../Cast/Cast'));
 const Reviews = lazy(() => import('../Reviews/Reviews'));
-const PageNotFound404 = lazy(() => import('pages/404'));
+const PageNotFound404 = lazy(() => import('pages/Page404'));
 
 export const App = () => {
   return (
