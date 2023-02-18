@@ -4,9 +4,9 @@ import { InfinitySpin } from 'react-loader-spinner';
 import Layout from '../Layout/Layout';
 import { Box } from './Box.styled';
 
-const Home = lazy(() => import('../../pages/Home'));
-const Movies = lazy(() => import('../../pages/Movies'));
-const MoviesDetails = lazy(() => import('../../pages/MoviesDetails'));
+const Home = lazy(() => import('pages/Home'));
+const Movies = lazy(() => import('pages/Movies'));
+const MoviesDetails = lazy(() => import('pages/MoviesDetails'));
 const Cast = lazy(() => import('../Cast/Cast'));
 const Reviews = lazy(() => import('../Reviews/Reviews'));
 const PageNotFound404 = lazy(() => import('pages/404'));
